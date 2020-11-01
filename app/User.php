@@ -37,9 +37,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function getAvatarAttribute()
+    public function getAvatarAttribute($size)
     {
-        return "https://i.pravatar.cc/50?u=". $this->email;
+        if (!$size) {
+            $size=50;
+        }
+        return "https://i.pravatar.cc/$size?u=". $this->email;
     }
     public function timeline()
     {
@@ -67,5 +70,9 @@ class User extends Authenticatable
     public function follows()
     {
         return $this->belongsToMany(User::class, 'follows', 'user_id', 'following_user_id');
+    }
+    public function getRouteKeyName()
+    {
+        return 'name';
     }
 }

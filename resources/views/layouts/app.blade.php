@@ -28,12 +28,26 @@
                 <h1><img src="/images/logo.svg" alt="logo" /></h1>
             </header>
         </section>
-
+        @auth
         <section class="p-2">
             <main class="container mx-auto ">
-                @yield('content')
+                <div class="row">
+                    <div class="col-1">
+                        @include('_sidebar-links')
+                    </div>
+                    <div class="col-8 mx-auto">
+                        @yield('content')
+                    </div>
+                    <div class="col-2 bg-info rounded">
+                        @include('_friends-list')
+                    </div>
+                </div>
             </main>
         </section>
+        @endauth
+        @guest
+        @yield('content')
+        @endguest
     </div>
 </body>
 
